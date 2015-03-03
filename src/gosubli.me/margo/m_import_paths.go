@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"log"
 )
 
 func init() {
@@ -135,10 +136,12 @@ func (w *importWalker) Walk(path string, info os.FileInfo, err error) error {
 // uniqueEnv returns a slice of unique Go pkg directories by
 // combining the Go paths supplied by env and DefaultEnv.
 func uniqueEnv(env map[string]string) []string {
-	if env == nil || len(env) == 0 {
-		return DefaultEnv.PkgDirs(nil)
-	}
-	return uniqueSlice(DefaultEnv.PkgDirs(nil), DefaultEnv.PkgDirs(env))
+	log.Println(env)
+	return []string{}
+	// if env == nil || len(env) == 0 {
+	// 	return mEnvVars.PkgDirs(nil)
+	// }
+	// return uniqueSlice(mEnvVars.PkgDirs(nil), mEnvVars.PkgDirs(env))
 }
 
 // uniqueSlice returns the unique elements of slice s0 and s1.
