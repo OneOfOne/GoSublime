@@ -6,8 +6,8 @@ import (
 	"go/parser"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
-	"log"
 )
 
 func init() {
@@ -135,9 +135,13 @@ func (w *importWalker) Walk(path string, info os.FileInfo, err error) error {
 
 // uniqueEnv returns a slice of unique Go pkg directories by
 // combining the Go paths supplied by env and DefaultEnv.
+const pkgPath = "/pkg/" + runtime.GOOS + "_" + runtime.GOARCH + "/"
+
 func uniqueEnv(env map[string]string) []string {
-	log.Println(env)
-	return []string{}
+	return []string{
+		mEnvGetEnv("GOROOT") + pkgPath,
+		mEnvGetEnv("GOPATH") + pkgPath,
+	}
 	// if env == nil || len(env) == 0 {
 	// 	return mEnvVars.PkgDirs(nil)
 	// }
