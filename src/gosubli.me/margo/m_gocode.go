@@ -13,11 +13,11 @@ import (
 
 func init() {
 	registry.Register("gocode_complete", func(b *Broker) Caller {
-		return &mGocode{}
+		return &mGocode{Autoinst: true}
 	})
 
 	registry.Register("gocode_calltip", func(b *Broker) Caller {
-		return &mGocode{calltip: true}
+		return &mGocode{calltip: true, Autoinst: true}
 	})
 }
 
